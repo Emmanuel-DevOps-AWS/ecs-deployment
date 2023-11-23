@@ -23,7 +23,7 @@ jobs:
                 java-version: '11' 
             
             - name: perform code analysis
-              run: mvn sonar:sonar -Dsonar.host.url=http://174.129.105.124:9000
+              run: mvn sonar:sonar -Dsonar.host.url=http://3.84.33.108:9000
 
             - name: code build with maven 
               run:  mvn package   
@@ -55,4 +55,17 @@ jobs:
                 docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
                 docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
                 echo "image = $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-             
+            
+            - name: Create ECS task definition
+              run: |
+                aws ecs register-task-definition \
+                  --family ecsapp \
+                  --container-definitions ./task_definition.json
+          
+            - name: Update ECS service
+              run: |
+                aws ecs update-service \
+                  --cluster ecstest-cluster \
+                  --service ecs-service \
+                  --task-definition ecsapp:${{ github.sha }} \
+                  --desired-count 2
