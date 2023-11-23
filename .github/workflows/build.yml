@@ -40,7 +40,7 @@ jobs:
                 aws-region: ${{ secrets.AWS_REGION }}
             
             - name: login into amazon ECR
-              id: login-ecr
+              id: login-ecr-public
               uses: aws-actions/amazon-ecr-login@v2
               with:
                 registry-type: public
@@ -48,8 +48,8 @@ jobs:
             - name: Build image, tag, and push to ECR
               id: build-image
               env:
-                REGISTRY: ${{ steps.login-ecr.outputs.REGISTRY }} 
-                REPOSITORY_ALIAS: p6d3t8u8
+                REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+                REGISTRY_ALIAS: ecstest-registry-alias
                 REPOSITORY: ecstest
                 IMAGE_TAG: ${{ github.sha }}
               run: |
