@@ -1,13 +1,13 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:817238324436:task-definition/ecsapp",
+    "family": "ecstest-TD",
     "containerDefinitions": [
         {
-            "name": "ecsapp-container",
-            "image": "$IMAGE_TAG",
+            "name": "ecs-test",
+            "image": "$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "ecsapp-8080-tcp",
+                    "name": "ecs-test-8080-tcp",
                     "containerPort": 8080,
                     "hostPort": 8080,
                     "protocol": "tcp",
@@ -24,7 +24,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/ecsapp",
+                    "awslogs-group": "/ecs/ecstest-TD",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 },
@@ -32,51 +32,16 @@
             }
         }
     ],
-    "family": "ecsapp",
     "taskRoleArn": "arn:aws:iam::817238324436:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::817238324436:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
-    "volumes": [],
-    "status": "ACTIVE",
-    "requiresAttributes": [
-        {
-            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-        },
-        {
-            "name": "ecs.capability.execution-role-awslogs"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.task-iam-role"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-        },
-        {
-            "name": "ecs.capability.task-eni"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
-        }
-    ],
-    "placementConstraints": [],
-    "compatibilities": [
-        "EC2",
-        "FARGATE"
-    ],
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "cpu": 1024,
-    "memory": 3072,
+    "cpu": "1024",
+    "memory": "3072",
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
-    },
-    "registeredAt": "2023-11-23T01:16:11.160Z",
-    "registeredBy": "arn:aws:iam::817238324436:user/Emmanuel",
-    "tags": []
+    }
 }
