@@ -73,3 +73,5 @@ jobs:
                 service: ecs-service
                 cluster: ecstest-cluster
                 wait-for-service-stability: true
+                image: $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+                
