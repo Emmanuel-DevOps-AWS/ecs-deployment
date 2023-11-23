@@ -1,13 +1,13 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:817238324436:task-definition/ecstest-TD:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:817238324436:task-definition/ecsapp",
     "containerDefinitions": [
         {
-            "name": "ecs-test",
-            "image": "jakuma998/xashy-webapp:v1",
+            "name": "ecsapp-container",
+            "image": "$IMAGE_TAG",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "ecs-test-8080-tcp",
+                    "name": "ecsapp-8080-tcp",
                     "containerPort": 8080,
                     "hostPort": 8080,
                     "protocol": "tcp",
@@ -24,7 +24,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/ecstest-TD",
+                    "awslogs-group": "/ecs/ecsapp",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 },
@@ -32,7 +32,7 @@
             }
         }
     ],
-    "family": "ecstest-TD",
+    "family": "ecsapp",
     "taskRoleArn": "arn:aws:iam::817238324436:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::817238324436:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
