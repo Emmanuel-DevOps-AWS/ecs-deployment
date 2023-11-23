@@ -62,13 +62,13 @@ jobs:
               uses: aws-actions/amazon-ecs-render-task-definition@v1
               with:
                 task-definition: task_definition.json
-                container-name: my-container
+                container-name: ecs-test
                 image: $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           
             - name: Deploy Amazon ECS task definition
               uses: aws-actions/amazon-ecs-deploy-task-definition@v1
               with:
                 task-definition: ${{ steps.task-def.outputs.task-definition }}
-                service: my-service
-                cluster: my-cluster
+                service: ecs-service
+                cluster: ecstest-cluster
                 wait-for-service-stability: true
