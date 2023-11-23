@@ -3,7 +3,6 @@
     "containerDefinitions": [
         {
             "name": "ecs-test",
-            "image": "",
             "cpu": 0,
             "portMappings": [
                 {
