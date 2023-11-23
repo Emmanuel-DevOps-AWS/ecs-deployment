@@ -1,11 +1,9 @@
-from .github/workflows/build.yml import 
-
 {
     "taskDefinitionArn": "arn:aws:ecs:us-east-1:817238324436:task-definition/ecstest-TD:1",
     "containerDefinitions": [
         {
             "name": "ecs-test",
-            "image": "${REGISTRY}/${REGISTRY_ALIAS}/${REPOSITORY}:${IMAGE_TAG}",
+            "image": "",
             "cpu": 0,
             "portMappings": [
                 {
