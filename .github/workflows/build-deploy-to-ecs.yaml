@@ -1,0 +1,56 @@
+name: build and deploy artifact to ECS.
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    scan-build-containerize:
+        permissions:
+            contents: read
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: clone repository
+              uses: actions/checkout@v3  ### the first step clones our repo into the runner. 
+
+            - name: install and setup java with maven 
+              uses: actions/setup-java@v3
+              with:
+                distribution: 'adopt'
+                java-version: '11' 
+            
+            - name: perform code analysis
+              run: mvn sonar:sonar -Dsonar.host.url=http://174.129.105.124:9000
+
+            - name: code build with maven 
+              run:  mvn package   
+            - name: upload artifact to artifact repository
+              run: mvn --batch-mode deploy
+              env: 
+                GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+            - name: authenticate into aws
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+                aws-region: ${{ secrets.AWS_REGION }}
+            
+            - name: login into amazon ECR
+              id: login-ecr
+              uses: aws-actions/amazon-ecr-login@v1
+
+            - name: build image, tag and push to ECR
+              id: build-image
+              env:
+                REGISTRY: ${{steps.login-ecr.outputs.REGISTRY}} #This step is getting the output of the previous step
+                REPOSITORY: ecstest
+                IMAGE_TAG: ${{github.sha}}
+              run: |
+                docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+                docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+                echo "Image = $REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+            
