@@ -64,7 +64,7 @@ jobs:
                 REGISTRY_ALIAS: p6d3t8u8
                 REPOSITORY: ecstest
                 IMAGE_TAG: ${{ github.sha }}
-              uses: aws-actions/amazon-ecs-render-task-definition@v1
+              uses: aws-actions/amazon-ecs-render-task-definition@v1 
               with:
                 task-definition: task_definition.json
                 image: ${{env.REGISTRY}}/${{env.REGISTRY_ALIAS}}/${{env.REPOSITORY}}:${{env.IMAGE_TAG}}
