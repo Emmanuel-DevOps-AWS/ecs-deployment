@@ -46,7 +46,7 @@ jobs:
                 registry-type: public
         
             - name: Build, tag, and push docker image to Amazon ECR Public
-              id: build-image
+              id: build_image
               env:
                 REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
                 REGISTRY_ALIAS: p6d3t8u8
@@ -62,7 +62,7 @@ jobs:
               uses: aws-actions/amazon-ecs-render-task-definition@v1
               with:
                 task-definition: task_definition.json
-                image: ${{ steps.build-image.outputs.image }}
+                image: ${{ steps.build_image.outputs.image }}
                 container-name: ecs-test
                 
           
