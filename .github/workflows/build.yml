@@ -60,7 +60,7 @@ jobs:
               run: |
                 aws ecs register-task-definition \
                   --family ecsapp \
-                  --container-definitions "./task_definition.json"
+                  --container-definitions "$(cat ./task_definition.json)"
           
             - name: Update ECS service
               run: |
