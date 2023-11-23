@@ -39,23 +39,22 @@ jobs:
                 aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
                 aws-region: ${{ secrets.AWS_REGION }}
             
-            - name: login into amazon ECR
+            - name: Login to Amazon ECR Public
               id: login-ecr-public
               uses: aws-actions/amazon-ecr-login@v2
               with:
                 registry-type: public
-
-            - name: Build image, tag, and push to ECR
-              id: build-image
-              env:
-                REGISTRY: "public.ecr.aws/ecstest"
-                REGISTRY_ALIAS: p6d3t8u8
-                REPOSITORY: ecstest
-                IMAGE_TAG: ${{ github.sha }}
-              run: |
-                aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p6d3t8u8
-                docker build -t ecstest .
-                docker tag ecstest:latest public.ecr.aws/p6d3t8u8/ecstest:latest
-                docker push public.ecr.aws/p6d3t8u8/ecstest:latest
-
+            
+            - name: echo
+              run: echo ${{ steps.login-ecr-public.outputs.registry }}
+        
+            # - name: Build, tag, and push docker image to Amazon ECR Public
+            #   env:
+            #     REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+            #     REGISTRY_ALIAS: my-ecr-public-registry-alias
+            #     REPOSITORY: ecstest
+            #     IMAGE_TAG: ${{ github.sha }}
+            #   run: |
+            #     docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+            #     docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
              
