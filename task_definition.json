@@ -1,3 +1,5 @@
+from .github/workflows/build.yml import 
+
 {
     "taskDefinitionArn": "arn:aws:ecs:us-east-1:817238324436:task-definition/ecstest-TD:1",
     "containerDefinitions": [
