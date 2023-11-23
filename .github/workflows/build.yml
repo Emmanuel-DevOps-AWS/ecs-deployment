@@ -49,7 +49,7 @@ jobs:
               id: build-image
               env:
                 REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-                REGISTRY_ALIAS: ecstest-registry-alias
+                REGISTRY_ALIAS: p6d3t8u8
                 REPOSITORY: ecstest
                 IMAGE_TAG: ${{ github.sha }}
               run: |
