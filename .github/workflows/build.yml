@@ -48,12 +48,14 @@ jobs:
             - name: Build image, tag, and push to ECR
               id: build-image
               env:
-                REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+                REGISTRY: "public.ecr.aws/ecstest"
                 REGISTRY_ALIAS: p6d3t8u8
                 REPOSITORY: ecstest
                 IMAGE_TAG: ${{ github.sha }}
               run: |
-                docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-                docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-                echo "Image = $REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+                aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p6d3t8u8
+                docker build -t ecstest .
+                docker tag ecstest:latest public.ecr.aws/p6d3t8u8/ecstest:latest
+                docker push public.ecr.aws/p6d3t8u8/ecstest:latest
+
              
