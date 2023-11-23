@@ -59,6 +59,11 @@ jobs:
             
             - name: Fill in the new image ID in the Amazon ECS task definition
               id: task-def
+              env:
+                REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+                REGISTRY_ALIAS: p6d3t8u8
+                REPOSITORY: ecstest
+                IMAGE_TAG: ${{ github.sha }}
               uses: aws-actions/amazon-ecs-render-task-definition@v1
               with:
                 task-definition: task_definition.json
