@@ -4,6 +4,7 @@
         {
             "name": "ecs-test",
             "cpu": 0,
+            "image": "",
             "portMappings": [
                 {
                     "name": "ecs-test-8080-tcp",
