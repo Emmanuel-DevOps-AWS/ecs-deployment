@@ -62,7 +62,7 @@ jobs:
               uses: aws-actions/amazon-ecs-render-task-definition@v1
               with:
                 task-definition: task_definition.json
-                image: ${{ steps.build_image.outputs.image }}
+                image: nume
                 container-name: ecs-test
                 
           
