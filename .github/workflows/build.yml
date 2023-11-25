@@ -23,7 +23,7 @@ jobs:
                 java-version: '11' 
             
             - name: perform code analysis
-              run: mvn sonar:sonar -Dsonar.host.url=http://3.84.33.108:9000
+              run: mvn sonar:sonar -Dsonar.host.url=http://3.86.205.133:9000
 
             - name: code build with maven 
               run:  mvn package   
