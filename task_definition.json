@@ -3,8 +3,8 @@
     "containerDefinitions": [
         {
             "name": "ecs-test",
+            "image": "jakuma998/xashy-webapp:v1",
             "cpu": 0,
-            "image": "$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG",
             "portMappings": [
                 {
                     "name": "ecs-test-8080-tcp",
