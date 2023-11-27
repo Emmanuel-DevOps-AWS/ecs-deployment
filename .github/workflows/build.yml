@@ -23,7 +23,7 @@ jobs:
                 java-version: '11' 
             
             - name: perform code analysis
-              run: mvn sonar:sonar -Dsonar.host.url=http://3.86.205.133:9000
+              run: mvn sonar:sonar -Dsonar.host.url=http://3.93.24.248:9000
 
             - name: code build with maven 
               run:  mvn package   
@@ -66,7 +66,7 @@ jobs:
                 IMAGE_TAG: ${{ github.sha }}
               uses: aws-actions/amazon-ecs-render-task-definition@v1 
               with:
-                task-definition: task_definition.json
+                task-definition: task_definition.json  ##Make sure to edit the image in the task_definition.json file
                 image: ${{env.REGISTRY}}/${{env.REGISTRY_ALIAS}}/${{env.REPOSITORY}}:${{env.IMAGE_TAG}} 
                 container-name: ecs-test
                 
