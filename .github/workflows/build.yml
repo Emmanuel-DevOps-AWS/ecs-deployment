@@ -60,6 +60,11 @@ jobs:
 
       - name: Fill the Image ID into the task definition
         id: task-def
+        env:
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY_ALIAS: p6d3t8u8
+          REPOSITORY: ecs-deployment
+          IMAGE_TAG: ${{ github.sha }}
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task_definition.json
