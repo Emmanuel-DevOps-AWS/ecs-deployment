@@ -11,7 +11,7 @@
 <body>
 <h1 align="center">Welcome to Xashy Web Application Project for the April class.</h1>
 <h1 align="center">We are developing and creating quality Software Solutions to millions of clients worldwide.
-	           We are raising millionaires in IT automation. This is a test for Monday's class
+	           We are raising billionaires in IT automation. This is a test for Monday's class
 we offer AWS and DevOps training and our next class starts in August 2nd </h1>
 <hr>
 <br>
