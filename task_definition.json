@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "ecs-deployment-cont",
-            "image": "place-holder",
+            "image": "$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG",
             "cpu": 0,
             "portMappings": [
                 {
